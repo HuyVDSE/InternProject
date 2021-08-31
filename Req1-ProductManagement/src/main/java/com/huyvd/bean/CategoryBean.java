@@ -3,10 +3,12 @@ package com.huyvd.bean;
 import com.huyvd.DBUtil.ICategoryConnector;
 import com.huyvd.DBUtil.impl.CategoryConnector;
 import com.huyvd.model.Category;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 import java.util.List;
 
 @ManagedBean(name = "Category")
@@ -64,20 +66,27 @@ public class CategoryBean extends BaseBean{
             categoryConnector.save(model);
             addMessage("Add Category Success");
             return "category.page";
-        } catch (Exception e) {
-            addError("Exception: " + e.getMessage());
+        } catch (Exception ex) {
+            addError("Exception: " + ex.getMessage());
         }
         return "";
     }
 
-    public String update() {
+    public void update() {
         try {
             categoryConnector.save(selectedCategory);
             addMessage("Update Category Success");
-            return "category.page";
-        } catch (Exception e) {
-            addError("Exception: " + e.getMessage());
+        } catch (Exception ex) {
+            addError("Exception: " + ex.getMessage());
         }
-        return "";
+    }
+
+    public void delete(String id) {
+        try {
+            categoryConnector.delete(id);
+            addMessage("Record deleted!");
+        } catch (Exception ex) {
+            addError("Exception: " + ex.getMessage());
+        }
     }
 }
