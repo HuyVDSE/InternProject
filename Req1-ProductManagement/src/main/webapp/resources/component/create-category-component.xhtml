@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+    <composite:attribute name="nameValue"/>
+    <composite:attribute name="updateString"/>
+
+    <composite:attribute name="saveButtonAction" method-signature="java.lang.String action()"/>
+</composite:interface>
+
+<composite:implementation>
+    <h:form id="create-category-form">
+        <p:dialog id="create-category" widgetVar="create-category">
+            <f:facet name="header">
+                <h:outputText value="Create Category"/>
+            </f:facet>
+            <h:panelGrid columns="3" cellpadding="7">
+                <p:outputLabel for="name" value="Name"/>
+                <p:inputText id="name" value="#{cc.attrs.nameValue}" required="true"/>
+
+                <p:commandButton value="Save" action="#{cc.attrs.saveButtonAction}"
+                                 update=":#{cc.attrs.updateString}"
+                                 styleClass="p-mt-3" icon="pi pi-check"/>
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+</composite:implementation>
+</html>

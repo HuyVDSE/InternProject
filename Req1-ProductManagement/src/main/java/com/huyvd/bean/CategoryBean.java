@@ -3,13 +3,15 @@ package com.huyvd.bean;
 import com.huyvd.DBUtil.ICategoryConnector;
 import com.huyvd.DBUtil.impl.CategoryConnector;
 import com.huyvd.model.Category;
-import org.primefaces.event.RowEditEvent;
+import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name = "Category")
 @SessionScoped
@@ -19,6 +21,7 @@ public class CategoryBean extends BaseBean{
     private String categoryId;
     private String categoryName;
     private Category selectedCategory;
+    private String searchValue;
 
     public List<Category> getCategoryList() {
         categoryList = categoryConnector.getCategoryList();
@@ -54,22 +57,38 @@ public class CategoryBean extends BaseBean{
         this.selectedCategory = selectedCategory;
     }
 
+    public ICategoryConnector getCategoryConnector() {
+        return categoryConnector;
+    }
+
+    public void setCategoryConnector(ICategoryConnector categoryConnector) {
+        this.categoryConnector = categoryConnector;
+    }
+
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
+    }
+
     @PostConstruct
     public void init() {
         categoryConnector = new CategoryConnector();
     }
 
-    public String add() {
+    public void add() {
         try {
             Category model = new Category();
             model.setName(categoryName);
             categoryConnector.save(model);
             addMessage("Add Category Success");
-            return "category.page";
+//            return "category.page";
         } catch (Exception ex) {
             addError("Exception: " + ex.getMessage());
         }
-        return "";
+//        return "";
     }
 
     public void update() {
