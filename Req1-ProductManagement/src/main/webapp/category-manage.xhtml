@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:component="http://java.sun.com/jsf/composite/component">
+      xmlns:component="http://java.sun.com/jsf/composite/component" xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
     <title>Category</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
@@ -12,7 +12,7 @@
 <h:body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-2 mr-4">
+            <div class="col-3 mr-4">
                 <div class="row mb-3">
                     <h4>Search Category</h4>
                     <h:form id="search-form">
@@ -21,6 +21,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <component:create-category-component
+                            header="Create Category"
                             nameValue="#{Category.categoryName}"
                             updateString="table-form"
                             saveButtonAction="#{Category.add()}"
@@ -29,14 +30,13 @@
                                      icon="pi pi-plus-circle"/>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 <div class="row justify-content-center">
                     <h3>Category Record</h3>
                     <h:form id="table-form">
                         <p:growl id="message" showDetail="false"/>
                         <div class="card">
                             <p:dataTable id="categoryTable" var="category" value="#{Category.categoryList}">
-
                                 <p:column headerText="ID">
                                     <h:outputText value="#{category.id}"/>
                                 </p:column>
@@ -44,7 +44,10 @@
                                     <h:outputText value="#{category.name}"/>
                                 </p:column>
                                 <p:column headerText="Update">
-                                    <!-- <p:commandButton action="" value="Update" update="message"/> -->
+                                    <p:commandButton value="Update" actionListener="#{Category.setSelectedCategory(category)}"
+                                                     onclick="PF('update-category').show()"
+                                                     update=":update-form:name"
+                                                     icon="pi pi-pencil" />
                                 </p:column>
                                 <p:column headerText="Delete">
                                     <p:commandButton value="Delete" action="#{Category.delete(category.id)}"
@@ -63,6 +66,18 @@
                                 </p:column>
                             </p:dataTable>
                         </div>
+                    </h:form>
+                    <h:form id="update-form">
+                        <p:dialog widgetVar="update-category" header="Update Category" height="100" width="400">
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="name" value="Name"/>
+                                <p:inputText id="name" value="#{Category.selectedCategory.name}" required="true"/>
+
+                                <p:commandButton value="Save" action="#{Category.update()}"
+                                                 update=":table-form"
+                                                 styleClass="p-mt-3" icon="pi pi-check" />
+                            </h:panelGrid>
+                        </p:dialog>
                     </h:form>
                 </div>
             </div>
