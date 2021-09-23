@@ -15,7 +15,7 @@
 </composite:interface>
 
 <composite:implementation>
-    <h:form id="create-category-form">
+    <h:form id="frmAddCategory">
         <p:dialog id="create-category" widgetVar="create-category">
             <f:facet name="header">
                 <h:outputText value="#{cc.attrs.header}"/>
@@ -25,7 +25,7 @@
                 <p:inputText id="name" value="#{cc.attrs.nameValue}" required="true"/>
 
                 <p:commandButton value="Save" action="#{cc.attrs.saveButtonAction}"
-                                 update=":#{cc.attrs.updateString}"
+                                 update="#{cc.attrs.updateString}"
                                  styleClass="p-mt-3" icon="pi pi-check"/>
             </h:panelGrid>
         </p:dialog>

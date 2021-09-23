@@ -20,6 +20,12 @@ public class CategoryConnector extends BaseConnector implements ICategoryConnect
     }
 
     @Override
+    public List<Category> searchCategoryByName(String searchValue) {
+        String propertyName = "name";
+        return getMongoObjectConnectorCategory().getObjectMatchProperty(propertyName, searchValue);
+    }
+
+    @Override
     public void save(Category category) {
         CategoryFactory factory = new CategoryFactory();
         IDynamicObject iDynamicObject = factory.createObject(category);

@@ -94,4 +94,8 @@ public class CategoryBean extends BaseBean{
             addError("Exception: " + ex.getMessage());
         }
     }
+
+    public void searchCategory() {
+        categoryList = categoryConnector.searchCategoryByName(searchValue);
+    }
 }

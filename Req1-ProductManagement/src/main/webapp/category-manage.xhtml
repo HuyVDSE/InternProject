@@ -16,7 +16,9 @@
                 <div class="row mb-3">
                     <h4>Search Category</h4>
                     <h:form id="search-form">
-                        Name: <p:inputText value="#{Category.searchValue}"/>
+                        Name: <p:inputText value="#{Category.searchValue}"/><br/>
+                        <p:commandButton value="Search" action="#{Category.searchCategory}"
+                                         update=":table-form" icon="pi pi-search"/>
                     </h:form>
                 </div>
                 <div class="row justify-content-center">
@@ -26,7 +28,7 @@
                             updateString="table-form"
                             saveButtonAction="#{Category.add()}"
                     />
-                    <p:commandButton value="Create" oncomplete="PF('create-category').show()"
+                    <p:commandButton value="Create" onclick="PF('create-category').show()"
                                      icon="pi pi-plus-circle"/>
                 </div>
             </div>

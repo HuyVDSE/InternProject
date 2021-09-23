@@ -8,6 +8,8 @@ public interface ICategoryConnector {
 
     List<Category> getCategoryList();
 
+    List<Category> searchCategoryByName(String searchValue);
+
     void save(Category category);
 
     Category getCategory(String id);
